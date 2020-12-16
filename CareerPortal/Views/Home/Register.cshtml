@@ -1,0 +1,71 @@
+﻿
+<div class="container">
+    <div class="mt-5 row justify-content-center">
+        <div class="col-7 border p-5">
+            <form>
+                <h1 style="text-align:center">Register</h1>
+                <small class="form-text text-muted text-center mb-5">Existing user ? <a asp-action="Login">Click here</a> to login</small>
+                <div class="row">
+                    <div class="col-10">
+                        <h3>Personal Information</h3>
+                        <div class="form-group row mt-4">
+                            <div class="col-4">
+                                <label for="exampleInputEmail1" class="mt-2">Email address</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label for="exampleInputPassword1" class="mt-2">Password</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label for="exampleInputPassword1" class="mt-2">Confirm password</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label class="mt-2">Address</label>
+                            </div>
+                            <div class="col-8">
+                                <textarea class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label class="mt-2">Date of Birth</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label class="mt-2">Phone Number</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" placeholder="Phone Number" pattern="[0-9]{10}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a asp-controller="Education" asp-action="Index" class="btn btn-primary mt-4 float-right">Next : Add Education Details</a>
+            </form>
+        </div>
+    </div>
+
+</div>

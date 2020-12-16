@@ -1,0 +1,45 @@
+﻿
+<div class="container">
+    <div class="mt-5 row border justify-content-between p-5">
+        <div class="col">
+            <h3>Experience Details</h3>
+        </div>
+        <div class="col">
+            <a asp-action="Upsert" class="btn btn-primary float-right"><i class="fas fa-plus"></i> &nbsp; Add Experience</a>
+        </div>
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Company</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Cognizant</td>
+                    <td>Programmer Analyst Trainee</td>
+                    <td>IoT Developer</td>
+                    <td>09/05/20</td>
+                    <td>12/16/20</td>
+                    <td>
+                        <div class="text-center">
+                            <a class="btn btn-success text-white" style="cursor:pointer">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a class="btn btn-danger text-white" style="cursor:pointer">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a asp-controller="Profile" asp-action="Index" class="btn btn-primary mt-4 float-right">Submit and view profile</a>
+    </div>
+</div>

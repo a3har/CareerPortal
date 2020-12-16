@@ -1,0 +1,63 @@
+﻿
+<div class="container">
+    <div class="mt-5 row border justify-content-between p-5">
+        <div class="col">
+            <h3>Education Details</h3>
+        </div>
+        <div class="col">
+            <a asp-action="Upsert" class="btn btn-primary float-right"><i class="fas fa-plus"></i> &nbsp; Add Education</a>
+        </div>
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Institution</th>
+                    <th scope="col">Degree</th>
+                    <th scope="col">Score</th>
+                    <th scope="col">Enrollment Year</th>
+                    <th scope="col">Pass Year</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mock School</td>
+                    <td>XII (CBSE)</td>
+                    <td>90</td>
+                    <td>2015</td>
+                    <td>2016</td>
+                    <td>
+                        <div class="text-center">
+                            <a class="btn btn-success text-white" style="cursor:pointer">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a class="btn btn-danger text-white" style="cursor:pointer">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Mock College</td>
+                    <td>BTech</td>
+                    <td>86</td>
+                    <td>2016</td>
+                    <td>2020</td>
+                    <td>
+                        <div class="text-center">
+                            <a class="btn btn-success text-white" style="cursor:pointer">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a class="btn btn-danger text-white" style="cursor:pointer">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a asp-controller="Experience" asp-action="Index" class="btn btn-primary mt-4 float-right">Next : Add Experience Details</a>  
+    </div>
+</div>
