@@ -7,6 +7,9 @@ namespace CareerPortal.DataAccess.Repository.IRepository
     public interface IUnitOfWork : IDisposable
     {
         IUserRepository User { get; }
+        IEducationRepository Education { get; }
+        IExperienceRepository Experience { get; }
+
         public void Save();
     }
 }

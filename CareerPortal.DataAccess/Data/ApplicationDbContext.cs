@@ -14,5 +14,8 @@ namespace CareerPortal.DataAccess.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Education> Educations { get; set; }
+        public DbSet<Experience> Experiences { get; set; }
+
     }
 }

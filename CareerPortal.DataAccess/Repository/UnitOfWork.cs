@@ -14,8 +14,9 @@ namespace BulkyBook.DataAccess.Repository
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
-            
-            
+
+            Education = new EducationRepository(_db);
+            Experience = new ExperienceRepository(_db);
             User = new UserRepository(_db);
         }
 
@@ -23,6 +24,10 @@ namespace BulkyBook.DataAccess.Repository
 
 
         public IUserRepository User { get; private set; }
+        public IEducationRepository Education { get; private set; }
+        public IExperienceRepository Experience { get; private set; }
+
+
 
         public void Dispose()
         {
