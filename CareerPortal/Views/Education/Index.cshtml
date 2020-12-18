@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<CareerPortal.Models.Education>
 <div class="container">
     <div class="mt-5 row border justify-content-between p-5">
         <div class="col">
@@ -10,7 +10,6 @@
         <table class="table mt-4">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Institution</th>
                     <th scope="col">Degree</th>
                     <th scope="col">Score</th>
@@ -20,44 +19,36 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mock School</td>
-                    <td>XII (CBSE)</td>
-                    <td>90</td>
-                    <td>2015</td>
-                    <td>2016</td>
-                    <td>
-                        <div class="text-center">
-                            <a class="btn btn-success text-white" style="cursor:pointer">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a class="btn btn-danger text-white" style="cursor:pointer">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Mock College</td>
-                    <td>BTech</td>
-                    <td>86</td>
-                    <td>2016</td>
-                    <td>2020</td>
-                    <td>
-                        <div class="text-center">
-                            <a class="btn btn-success text-white" style="cursor:pointer">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a class="btn btn-danger text-white" style="cursor:pointer">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
+                @foreach (var education in Model)
+                {
+                    <tr>
+                        <td scope="row">@education.Institution</td>
+                        <td>@education.Degree</td>
+                        <td>@education.Score</td>
+                        <td>@education.EnrollYear</td>
+                        <td>@education.PassYear</td>
+                        <td>
+                            <div class="text-center">
+                                <a asp-action="Upsert" asp-route-id="@education.Id" class="btn btn-success text-white" style="cursor:pointer">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a onclick="Delete('Education/Delete/@education.Id')" class="btn btn-danger text-white" style="cursor:pointer">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
             </tbody>
         </table>
         <a asp-controller="Experience" asp-action="Index" class="btn btn-primary mt-4 float-right">Next : Add Experience Details</a>  
     </div>
 </div>
+
+
+@section Scripts{ 
+
+<script src="~/js/education.js" ></script>
+
+}
