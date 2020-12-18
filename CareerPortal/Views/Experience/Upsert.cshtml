@@ -1,52 +1,61 @@
-﻿<div class="container">
+﻿@model CareerPortal.Models.Experience
+
+<div class="container">
     <div class="mt-5 row border justify-content-between p-5">
         <div class="col-8 p-5">
-            <form>
+            <form method="post">
+                <input type="hidden" asp-for="UserId" />
                 <div class="row">
                     <div class="col-10">
                         <h3>Add/Edit Experience</h3>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group row mt-4">
                             <div class="col-4">
-                                <label class="mt-2">Company Name</label>
+                                <label class="mt-2" asp-for="Company">Company Name</label>
                             </div>
                             <div class="col-8">
-                                <input type="text" class="form-control" placeholder="Enter company name" />
+                                <input type="text" asp-for="Company" class="form-control" placeholder="Enter company name" />
+                                <span asp-validation-for="Company" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-4">
-                                <label class="mt-2">Position</label>
+                                <label class="mt-2" asp-for="Position">Position</label>
                             </div>
                             <div class="col-8">
-                                <input type="text" class="form-control" placeholder="Enter position" />
+                                <input type="text" asp-for="Position" class="form-control" placeholder="Enter position" />
+                                <span asp-validation-for="Position" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-4">
-                                <label class="mt-2">Description</label>
+                                <label class="mt-2" asp-for="Description">Description</label>
                             </div>
                             <div class="col-8">
-                                <input type="text" class="form-control" placeholder="Enter short description of job role" />
+                                <textarea type="text" asp-for="Description" class="form-control" placeholder="Enter short description of job role"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-4">
-                                <label class="mt-2">Start Date</label>
+                                <label class="mt-2" asp-for="StartDate">Start Date</label>
                             </div>
                             <div class="col-8">
-                                <input type="date" class="form-control" placeholder="Enter start date" />
+                                <input type="date" asp-for="StartDate" class="form-control" placeholder="Enter start date" />
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-4">
-                                <label class="mt-2">End Date</label>
+                                <label class="mt-2" asp-for="EndDate">End Date</label>
                             </div>
                             <div class="col-8">
-                                <input type="date" class="form-control" placeholder="Enter end date" />
+                                <input type="date" asp-for="EndDate" class="form-control" placeholder="Enter end date" />
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-4">Add / Edit</button>

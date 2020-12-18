@@ -13,7 +13,7 @@
                 success: function (data) {
                     if (data.success) {
                         toastr.success(data.message);
-                        dataTable.ajax.reload();
+                        location.reload();
                     }
                     else {
                         toastr.error(data.message);
