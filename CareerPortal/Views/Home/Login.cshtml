@@ -4,7 +4,7 @@
 <div class="container">
     <div class="mt-5 row justify-content-center">
         <div class="col-6 border p-5">
-            <form>
+            <form method="post">
                 <h1 style="text-align:center" class="mb-5">Login</h1>
                 <div class="form-group row">
                     <div class="col-4">
@@ -34,3 +34,7 @@
     </div>
 
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

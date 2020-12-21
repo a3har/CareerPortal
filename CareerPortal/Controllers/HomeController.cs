@@ -1,5 +1,6 @@
 ﻿using CareerPortal.DataAccess.Repository.IRepository;
 using CareerPortal.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,7 +16,7 @@ namespace CareerPortal.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly SessionInfo UserInfo;
+        public SessionInfo UserInfo;
         private readonly IUnitOfWork _unitOfWork;
 
 
@@ -72,12 +73,38 @@ namespace CareerPortal.Controllers
 
         #region
 
-        //[HttpPost]
-        //public IActionResult Login(Login login)
-        //{
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(Login login)
+        {
+            if (ModelState.IsValid)
+            {
+                var UserFromDb = _unitOfWork.User.GetFirstOrDefault(i => i.Email == login.Email);
+                if(UserFromDb == null)
+                {
+                    ModelState.AddModelError("password", "Username or Password incorrect");
+                    return View(login);
+                }
+                if (UserFromDb.Password.Equals(login.Password))
+                {
+                    var UserInfo = new SessionInfo()
+                    {
+                        isLoggedIn = true,
+                        UserID = UserFromDb.Id
+                    };
+                    HttpContext.Session.SetString("SessionUser", JsonConvert.SerializeObject(UserInfo));
+                    return RedirectToRoute(new
+                    {
+                        controller = "Profile",
+                        action = "Index"
+                    });
+                }
+            }
+            ModelState.AddModelError("password", "Password incorrect");
+            return View(login);
+        }
 
-        //}
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Register(User user)
@@ -99,7 +126,7 @@ namespace CareerPortal.Controllers
                     action = "Index"
                 });
             }
-            return NotFound();
+            return View(user);
         }
         #endregion
     }

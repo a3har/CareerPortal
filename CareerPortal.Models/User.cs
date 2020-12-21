@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -19,7 +20,11 @@ namespace CareerPortal.Models
         [Required]
         public long PhoneNumber { get; set; }
         [EmailAddress]
+        [Remote(action: "IsEmailInUse", controller:"Validation",ErrorMessage ="Email already in use")]
         public string Email { get; set; }
+        [MaxLength(20,ErrorMessage ="Password cannot be more than 20 characters long")]
         public string Password { get; set; }
+        [Compare("Password",ErrorMessage="Password do not match")]
+        public string ConfirmPassword { get; set; }
     }
 }
