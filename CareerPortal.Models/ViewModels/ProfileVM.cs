@@ -8,6 +8,6 @@ namespace CareerPortal.Models.ViewModels
     {
         public User User { get; set; }
         public IEnumerable<Education> Educations { get; set; }
-        public IEnumerable<Experience> Experience { get; set; }
+        public IEnumerable<Experience> Experiences { get; set; }
     }
 }
