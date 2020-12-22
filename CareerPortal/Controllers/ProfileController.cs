@@ -20,8 +20,8 @@ namespace CareerPortal.Controllers
             ProfileVM profile = new ProfileVM()
             {
                 User = _unitOfWork.User.GetFirstOrDefault(i => i.Id == UserInfo.UserID),
-                Educations = _unitOfWork.Education.GetAll(i => i.Id == UserInfo.UserID),
-                Experiences = _unitOfWork.Experience.GetAll(i => i.Id == UserInfo.UserID)
+                Educations = _unitOfWork.Education.GetAll(i => i.UserId == UserInfo.UserID),
+                Experiences = _unitOfWork.Experience.GetAll(i => i.UserId == UserInfo.UserID)
             };
             return View(profile);
         }
