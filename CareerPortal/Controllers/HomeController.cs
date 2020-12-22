@@ -102,17 +102,23 @@ namespace CareerPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.User.Add(user);
-                _unitOfWork.Save();
+                var ObjFromDb = _unitOfWork.User.GetFirstOrDefault(i => i.Email == user.Email);
+                if (ObjFromDb == null)
+                {
+                    _unitOfWork.User.Add(user);
+                    _unitOfWork.Save();
 
-                UserInfo = new SessionInfo() {
-                    isLoggedIn = false,
-                    UserID = _unitOfWork.User.GetFirstOrDefault(i => i.Email == user.Email).Id
-                };
-                HttpContext.Session.SetString("SessionUser",JsonConvert.SerializeObject(UserInfo));
+                    UserInfo = new SessionInfo()
+                    {
+                        isLoggedIn = false,
+                        UserID = _unitOfWork.User.GetFirstOrDefault(i => i.Email == user.Email).Id
+                    };
+                    HttpContext.Session.SetString("SessionUser", JsonConvert.SerializeObject(UserInfo));
 
 
-                return RedirectToAction(nameof(Index), "Education");
+                    return RedirectToAction(nameof(Index), "Education");
+                }
+                ModelState.AddModelError("email", "Email ID already exists"); 
             }
             return View(user);
         }
