@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CareerPortal.Models.Validations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,8 +18,10 @@ namespace CareerPortal.Models
         [Required]
         public string Description { get; set; }
         [Required]
+        [DateLessThan("StartDate",ErrorMessage ="Must be less than or equal to End Date")]
         public DateTime StartDate { get; set; }
         [Required]
+        [DateLessThan("EndDate", ErrorMessage = "Must be greater than or equal to Start Date")]
         public DateTime EndDate { get; set; }
         [Required]
         public int UserId { get; set; } 

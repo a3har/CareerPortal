@@ -15,7 +15,7 @@ namespace CareerPortal.Models
         public string Name { get; set; }
         [Required]
         [DataType(DataType.Date)]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get ; set; }
         [Required]
         public string Address { get; set; }
         [Required]
