@@ -10,59 +10,45 @@ using System.Threading.Tasks;
 
 namespace CareerPortal.Controllers
 {
-    public class EducationController : Controller
+    public class EducationController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public EducationController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = unitOfWork;                
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            int id;
-            try
+            if (!UserInfo.isLoggedIn)
             {
-                var UserInfo = JsonConvert.DeserializeObject<SessionInfo>(HttpContext.Session.GetString("SessionUser"));
-                id = UserInfo.UserID;    
-            }
-            catch (Exception)
-            {
-                return RedirectToAction(nameof(Login), nameof(HomeController));
+                return RedirectToAction(nameof(Login), "Home");
             }
 
-            IEnumerable<Education> educations = _unitOfWork.Education.GetAll(i => i.UserId == id);
+            IEnumerable<Education> educations = _unitOfWork.Education.GetAll(i => i.UserId == UserInfo.UserID);
             return View(educations);
-
-
-
         }
         public IActionResult Upsert(int? id)
         {
-            try
+            if (!UserInfo.isLoggedIn)
             {
-                var UserInfo = JsonConvert.DeserializeObject<SessionInfo>(HttpContext.Session.GetString("SessionUser"));
-              
-                Education education;
-                if (id == 0 || id == null)
-                {
-                    education = new Education();
-                    education.UserId = UserInfo.UserID;
-                    return View(education);
-                }
-
-                education = _unitOfWork.Education.Get(id.GetValueOrDefault());
-                if (education == null)
-                {
-                    return NotFound();
-                }
+                return RedirectToAction(nameof(Login), "Home");
+            }
+            
+            Education education;
+            if (id == 0 || id == null)
+            {
+                education = new Education();
+                education.UserId = UserInfo.UserID;
                 return View(education);
             }
-            catch(Exception)
-            {
-                return RedirectToAction(nameof(Login), nameof(HomeController));
-            }
 
-            
+            education = _unitOfWork.Education.Get(id.GetValueOrDefault());
+            if (education == null)
+            {
+                return NotFound();
+            }
+            return View(education); 
         }
 
 
@@ -73,6 +59,10 @@ namespace CareerPortal.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Upsert(Education education)
         {
+            if (!UserInfo.isLoggedIn)
+            {
+                return RedirectToAction(nameof(Login), "Home");
+            }
             if (ModelState.IsValid)
             {
                 if(education.Id == 0)

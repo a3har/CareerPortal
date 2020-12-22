@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CareerPortal", "CareerPortal\CareerPortal.csproj", "{D284AFE3-4D61-480D-8EF8-A4AAE7E4B90C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CareerPortal.DataAccess", "CareerPortal.DataAccess\CareerPortal.DataAccess.csproj", "{96D5313B-709D-4AFF-B6BF-AF62A9939606}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CareerPortal.DataAccess", "CareerPortal.DataAccess\CareerPortal.DataAccess.csproj", "{96D5313B-709D-4AFF-B6BF-AF62A9939606}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CareerPortal.Models", "CareerPortal.Models\CareerPortal.Models.csproj", "{3A0D0925-AD92-4450-AD6E-8E8940F1F9AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CareerPortal.Models", "CareerPortal.Models\CareerPortal.Models.csproj", "{3A0D0925-AD92-4450-AD6E-8E8940F1F9AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CareerPortal.Utilities", "CareerPortal.Utilities\CareerPortal.Utilities.csproj", "{A8ECB9C2-60DB-4E66-9474-FD565B7C7E56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{3A0D0925-AD92-4450-AD6E-8E8940F1F9AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A0D0925-AD92-4450-AD6E-8E8940F1F9AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A0D0925-AD92-4450-AD6E-8E8940F1F9AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8ECB9C2-60DB-4E66-9474-FD565B7C7E56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8ECB9C2-60DB-4E66-9474-FD565B7C7E56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8ECB9C2-60DB-4E66-9474-FD565B7C7E56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8ECB9C2-60DB-4E66-9474-FD565B7C7E56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

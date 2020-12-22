@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerPortal.Controllers
 {
-    public class ExperienceController : Controller
+    public class ExperienceController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
         public ExperienceController(IUnitOfWork unitOfWork)
@@ -19,18 +19,12 @@ namespace CareerPortal.Controllers
         }
         public IActionResult Index()
         {
-            int id;
-            try
+            if (!UserInfo.isLoggedIn)
             {
-                var UserInfo = JsonConvert.DeserializeObject<SessionInfo>(HttpContext.Session.GetString("SessionUser"));
-                id = UserInfo.UserID;
-            }
-            catch (Exception)
-            {
-                return RedirectToAction(nameof(Login), nameof(HomeController));
+                return RedirectToAction(nameof(Login), "Home");
             }
 
-            IEnumerable<Experience> experiences = _unitOfWork.Experience.GetAll(i => i.UserId == id);
+            IEnumerable<Experience> experiences = _unitOfWork.Experience.GetAll(i => i.UserId == UserInfo.UserID);
             return View(experiences);
 
 
@@ -38,31 +32,24 @@ namespace CareerPortal.Controllers
         }
         public IActionResult Upsert(int? id)
         {
-            try
+            if (!UserInfo.isLoggedIn)
             {
-                var UserInfo = JsonConvert.DeserializeObject<SessionInfo>(HttpContext.Session.GetString("SessionUser"));
-
-                Experience experience;
-                if (id == 0 || id == null)
-                {
-                    experience = new Experience();
-                    experience.UserId = UserInfo.UserID;
-                    return View(experience);
-                }
-
-                experience = _unitOfWork.Experience.Get(id.GetValueOrDefault());
-                if (experience == null)
-                {
-                    return NotFound();
-                }
+                return RedirectToAction(nameof(Login), "Home");
+            }
+            Experience experience;
+            if (id == 0 || id == null)
+            {
+                experience = new Experience();
+                experience.UserId = UserInfo.UserID;
                 return View(experience);
             }
-            catch (Exception)
+
+            experience = _unitOfWork.Experience.Get(id.GetValueOrDefault());
+            if (experience == null)
             {
-                return RedirectToAction(nameof(Login), nameof(HomeController));
+                return NotFound();
             }
-
-
+            return View(experience);
         }
 
 
@@ -73,6 +60,10 @@ namespace CareerPortal.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Upsert(Experience experience)
         {
+            if (!UserInfo.isLoggedIn)
+            {
+                return RedirectToAction(nameof(Login), "Home");
+            }
             if (ModelState.IsValid)
             {
                 if (experience.Id == 0)

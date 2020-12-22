@@ -13,10 +13,9 @@ using System.Threading.Tasks;
 
 namespace CareerPortal.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
-        public SessionInfo UserInfo;
         private readonly IUnitOfWork _unitOfWork;
 
 
@@ -24,25 +23,15 @@ namespace CareerPortal.Controllers
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
-            ////UserInfo = JsonConvert.DeserializeObject<SessionInfo>(HttpContext.Session.GetString("SessionUser"));
-            UserInfo = new SessionInfo(){
-                isLoggedIn = false,
-                UserID = 0
-            };
-            
         }
 
         public IActionResult Index()
         {
-            HttpContext.Session.SetString("SessionUser", JsonConvert.SerializeObject(UserInfo));
             if (UserInfo == null || !UserInfo.isLoggedIn)
             {
                 return View();
             }
-            else
-            {
-                return RedirectToAction(nameof(Index), nameof(ProfileController));
-            }
+            return RedirectToAction(nameof(Index), "Profile");
         }
 
         public IActionResult Login()
@@ -55,6 +44,14 @@ namespace CareerPortal.Controllers
         {
             User user = new User();
             return View(user);
+        }
+
+        public IActionResult Logout()
+        {
+            UserInfo = new SessionInfo();
+            HttpContext.Session.SetString("SessionUser", JsonConvert.SerializeObject(UserInfo));
+            return RedirectToAction(nameof(Index));
+ 
         }
         public IActionResult Privacy()
         {
@@ -80,18 +77,18 @@ namespace CareerPortal.Controllers
                 var UserFromDb = _unitOfWork.User.GetFirstOrDefault(i => i.Email == login.Email);
                 if(UserFromDb == null)
                 {
-                    ModelState.AddModelError("password", "Username or Password incorrect");
+                    ModelState.AddModelError("email", "Username incorrect");
                     return View(login);
                 }
                 if (UserFromDb.Password.Equals(login.Password))
                 {
-                    var UserInfo = new SessionInfo()
+                    UserInfo = new SessionInfo()
                     {
                         isLoggedIn = true,
                         UserID = UserFromDb.Id
                     };
                     HttpContext.Session.SetString("SessionUser", JsonConvert.SerializeObject(UserInfo));
-                    return RedirectToAction(nameof(Index), nameof(ProfileController));
+                    return RedirectToAction(nameof(Index), "Profile");
                 }
             }
             ModelState.AddModelError("password", "Password incorrect");
@@ -108,14 +105,14 @@ namespace CareerPortal.Controllers
                 _unitOfWork.User.Add(user);
                 _unitOfWork.Save();
 
-                var UserInfo = new SessionInfo() {
+                UserInfo = new SessionInfo() {
                     isLoggedIn = false,
                     UserID = _unitOfWork.User.GetFirstOrDefault(i => i.Email == user.Email).Id
                 };
                 HttpContext.Session.SetString("SessionUser",JsonConvert.SerializeObject(UserInfo));
 
 
-                return RedirectToAction(nameof(Index), nameof(EducationController));
+                return RedirectToAction(nameof(Index), "Education");
             }
             return View(user);
         }
