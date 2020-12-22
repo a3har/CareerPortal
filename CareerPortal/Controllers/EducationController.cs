@@ -27,11 +27,7 @@ namespace CareerPortal.Controllers
             }
             catch (Exception)
             {
-                return RedirectToRoute(new
-                {
-                    controller = "Home",
-                    action = "Login"
-                });
+                return RedirectToAction(nameof(Login), nameof(HomeController));
             }
 
             IEnumerable<Education> educations = _unitOfWork.Education.GetAll(i => i.UserId == id);
@@ -63,11 +59,7 @@ namespace CareerPortal.Controllers
             }
             catch(Exception)
             {
-                return RedirectToRoute(new
-                {
-                    controller = "Home",
-                    action = "Login"
-                });
+                return RedirectToAction(nameof(Login), nameof(HomeController));
             }
 
             

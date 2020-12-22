@@ -27,23 +27,21 @@ namespace CareerPortal.Controllers
             ////UserInfo = JsonConvert.DeserializeObject<SessionInfo>(HttpContext.Session.GetString("SessionUser"));
             UserInfo = new SessionInfo(){
                 isLoggedIn = false,
-                UserID = 3
+                UserID = 0
             };
+            
         }
 
         public IActionResult Index()
         {
+            HttpContext.Session.SetString("SessionUser", JsonConvert.SerializeObject(UserInfo));
             if (UserInfo == null || !UserInfo.isLoggedIn)
             {
                 return View();
             }
             else
             {
-                return RedirectToRoute(new
-                {
-                    controller = "Profile",
-                    action = "Index"
-                });
+                return RedirectToAction(nameof(Index), nameof(ProfileController));
             }
         }
 
@@ -93,11 +91,7 @@ namespace CareerPortal.Controllers
                         UserID = UserFromDb.Id
                     };
                     HttpContext.Session.SetString("SessionUser", JsonConvert.SerializeObject(UserInfo));
-                    return RedirectToRoute(new
-                    {
-                        controller = "Profile",
-                        action = "Index"
-                    });
+                    return RedirectToAction(nameof(Index), nameof(ProfileController));
                 }
             }
             ModelState.AddModelError("password", "Password incorrect");
@@ -121,10 +115,7 @@ namespace CareerPortal.Controllers
                 HttpContext.Session.SetString("SessionUser",JsonConvert.SerializeObject(UserInfo));
 
 
-                return RedirectToRoute(new {
-                    controller = "Education",
-                    action = "Index"
-                });
+                return RedirectToAction(nameof(Index), nameof(EducationController));
             }
             return View(user);
         }
