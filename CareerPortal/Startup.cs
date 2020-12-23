@@ -1,6 +1,9 @@
+using Amazon.S3;
 using BulkyBook.DataAccess.Repository;
 using CareerPortal.DataAccess.Data;
 using CareerPortal.DataAccess.Repository.IRepository;
+using CareerPortal.Services;
+using CareerPortal.Services.IService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +39,8 @@ namespace CareerPortal
             {
                 options.IdleTimeout = TimeSpan.FromDays(1);
             });
+            services.AddSingleton<IS3Service,S3Service>();
+            services.AddAWSService<IAmazonS3>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

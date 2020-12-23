@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CareerPortal.DataAccess", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CareerPortal.Models", "CareerPortal.Models\CareerPortal.Models.csproj", "{3A0D0925-AD92-4450-AD6E-8E8940F1F9AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{AC7450C7-DF48-4634-922D-65A75D193647}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3A0D0925-AD92-4450-AD6E-8E8940F1F9AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A0D0925-AD92-4450-AD6E-8E8940F1F9AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A0D0925-AD92-4450-AD6E-8E8940F1F9AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC7450C7-DF48-4634-922D-65A75D193647}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC7450C7-DF48-4634-922D-65A75D193647}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC7450C7-DF48-4634-922D-65A75D193647}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC7450C7-DF48-4634-922D-65A75D193647}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
