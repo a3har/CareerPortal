@@ -1,6 +1,7 @@
 ﻿using CareerPortal.DataAccess.Repository.IRepository;
 using CareerPortal.Models;
 using CareerPortal.Services.IService;
+using CareerPortal.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +10,9 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Utilities;
 
 namespace CareerPortal.Controllers
 {
@@ -67,17 +68,35 @@ namespace CareerPortal.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         [HttpGet]
-        public IActionResult POC()
+        public IActionResult AddFile(string type="Image")
         {
-            return View();
+            if (!UserInfo.isLoggedIn) return RedirectToAction(nameof(Login));
+            FileUploadObject file = new FileUploadObject();
+            file.Type = type;
+            return View(file);
         }
 
         [HttpPost]
-        public async Task<IActionResult> POC(POC test)
-        {      
-            var response = await _service.UploadFileAsync(test.URL, SD.BucketName + @"/" + "images");
-            return Ok(response);
+        public async Task<IActionResult> AddFile(FileUploadObject test)
+        {
+            if (!UserInfo.isLoggedIn) return RedirectToAction(nameof(Login));
+            if (ModelState.IsValid)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await test.URL.CopyToAsync(memoryStream);
+                    if (memoryStream.Length < 2097152)
+                    {
+                        var BucketName = test.Type.Equals("Image") ? SD.BucketName + @"/" + SD.ProfileImageFolder : SD.BucketName + @"/" + SD.ResumeFolder;
+                        var response = await _service.UploadFileAsync(memoryStream, BucketName, UserInfo.UserID.ToString());
+                        if (response.UploadSuccessful) return RedirectToAction(nameof(Index), "Profile");
+                        else return Ok(response);
+                    }
 
+                    ModelState.AddModelError("url", "File must be less than 2 mb");
+                }
+            }
+            return View(test);
         }
 
         #region

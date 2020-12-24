@@ -1,4 +1,5 @@
 ﻿using Amazon.S3;
+using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using CareerPortal.Models;
 using CareerPortal.Services.IService;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CareerPortal.Services
@@ -21,22 +23,18 @@ namespace CareerPortal.Services
             _client = client;
         }
 
-        public async Task<S3Response> UploadFileAsync(IFormFile File,string BucketName)
+        public async Task<S3Response> UploadFileAsync(MemoryStream memoryStream,string BucketName,string FileKey)
         {
-            if (File == null) return new S3Response { Message = "IFormFile value null" };
+            if (memoryStream == null) return new S3Response { Message = "memoryStream value null" };
             try
             {
                 var fileTransferUtility = new TransferUtility(_client);
-                using (var memoryStream = new MemoryStream())
-                {
-                    await File.CopyToAsync(memoryStream);
-                    await fileTransferUtility.UploadAsync(memoryStream, BucketName, "Test");
-                }
-
+                await fileTransferUtility.UploadAsync(memoryStream, BucketName, FileKey);
                 //await fileTransferUtility.UploadAsync(File, BucketName, "Test");
                 return new S3Response
                 {
-                    Message = "Upload Successfull"
+                    Message = "Upload Successfull",
+                    UploadSuccessful = true
                 };
             }
             catch(AmazonS3Exception e)
@@ -44,7 +42,8 @@ namespace CareerPortal.Services
                 return new S3Response
                 {
                     Message = e.Message,
-                    Status = e.StatusCode
+                    Status = e.StatusCode,
+                    UploadSuccessful = false
                 };
             }
             catch (Exception e)
@@ -53,9 +52,9 @@ namespace CareerPortal.Services
                 return new S3Response
                 {
                     Message = e.Message,
+                    UploadSuccessful = false
                 };
             }
         }
-
     }
 }

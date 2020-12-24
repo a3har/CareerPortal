@@ -1,18 +1,27 @@
 ﻿@model CareerPortal.Models.ViewModels.ProfileVM
+@using CareerPortal.Utilities
 
 <div class="container-fluid">
     <div class="main-body">
         <div class="row gutters-sm">
-            
-
-
             <div class="col-md-4 mb-3">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                            <img onerror="this.onerror=null; this.src='https://bootdey.com/img/Content/avatar/avatar7.png'" src="@ViewData["ProfileImgSrc"]" alt="Admin" class="rounded-circle" width="150">
                             
                         </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <a class="btn btn-primary text-white" asp-action="AddFile" asp-controller="Home" asp-route-type="Image">Change Profile Picture</a>
+                    </div>
+                    <div class="col-3">
+                        <a class="btn btn-primary text-white" asp-action="AddFile" asp-controller="Home" asp-route-type="Resume">Update Resume</a>
+                    </div>
+                    <div class="col-3">
+                        <a class="btn btn-primary text-white" href='@ViewData["ResumeSrc"]'>Download Resume</a>
                     </div>
                 </div>
                 
@@ -20,9 +29,6 @@
             
             
             <div class="col-8">
-                
-                
-                
                 <div class="card mb-3">
                     <div class="card-body">
                         

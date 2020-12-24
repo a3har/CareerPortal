@@ -9,5 +9,6 @@ namespace CareerPortal.Models
     {
         public HttpStatusCode Status { get; set; }
         public string Message { get; set; }
+        public bool UploadSuccessful { get; set; }
     }
 }

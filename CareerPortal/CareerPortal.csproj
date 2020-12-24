@@ -20,7 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CareerPortal.DataAccess\CareerPortal.DataAccess.csproj" />
     <ProjectReference Include="..\CareerPortal.Models\CareerPortal.Models.csproj" />
-    <ProjectReference Include="..\Utilities\Utilities.csproj" />
+    <ProjectReference Include="..\Utilities\CareerPortal.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

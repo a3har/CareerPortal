@@ -6,10 +6,11 @@ using System.Text;
 
 namespace CareerPortal.Models
 {
-    public class POC
+    public class FileUploadObject
     {
         [Required]
         [Display(Name = "File")]
         public IFormFile URL { get; set; }
+        public string Type { get; set; }
     }
 }
