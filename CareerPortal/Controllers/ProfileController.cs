@@ -25,8 +25,8 @@ namespace CareerPortal.Controllers
                 Educations = _unitOfWork.Education.GetAll(i => i.UserId == UserInfo.UserID),
                 Experiences = _unitOfWork.Experience.GetAll(i => i.UserId == UserInfo.UserID)
             };
-            ViewData["ProfileImgSrc"]=SD.S3BaseURL+"/"+SD.ProfileImageFolder+"/"+ UserInfo.UserID.ToString();
-            ViewData["ResumeSrc"] = SD.S3BaseURL + "/" + SD.ResumeFolder + "/" + UserInfo.UserID.ToString();
+            ViewData["ProfileImgSrc"]=SD.S3BaseURL+"/"+SD.ProfileImageFolder+"/"+ UserInfo.UserID.ToString()+".png";
+            ViewData["ResumeSrc"] = SD.S3BaseURL + "/" + SD.ResumeFolder + "/" + UserInfo.UserID.ToString()+".pdf";
 
             return View(profile);
         }

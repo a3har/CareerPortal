@@ -79,6 +79,7 @@ namespace CareerPortal.Controllers
         [HttpPost]
         public async Task<IActionResult> AddFile(FileUploadObject test)
         {
+            string FileKey;
             if (!UserInfo.isLoggedIn) return RedirectToAction(nameof(Login));
             if (ModelState.IsValid)
             {
@@ -87,10 +88,19 @@ namespace CareerPortal.Controllers
                     await test.URL.CopyToAsync(memoryStream);
                     if (memoryStream.Length < 2097152)
                     {
-                        var BucketName = test.Type.Equals("Image") ? SD.BucketName + @"/" + SD.ProfileImageFolder : SD.BucketName + @"/" + SD.ResumeFolder;
-                        var response = await _service.UploadFileAsync(memoryStream, BucketName, UserInfo.UserID.ToString());
-                        if (response.UploadSuccessful) return RedirectToAction(nameof(Index), "Profile");
-                        else return Ok(response);
+                        var extension = Path.GetExtension(test.URL.FileName).ToLower();
+                        if ( (extension.Equals(".png") && test.Type.Equals("Image")) || (extension.Equals(".pdf") && test.Type.Equals("Resume")))
+                        {
+                            FileKey = UserInfo.UserID.ToString() + extension;
+                            var BucketName = test.Type.Equals("Image") ? SD.BucketName + @"/" + SD.ProfileImageFolder : SD.BucketName + @"/" + SD.ResumeFolder;
+                            var response = await _service.UploadFileAsync(memoryStream, BucketName, FileKey);
+                            if (response.UploadSuccessful) return RedirectToAction(nameof(Index), "Profile");
+                            else return Ok(response);
+                        }else
+                        {
+                            ModelState.AddModelError("url", "Extension must be png / pdf");
+                        }
+                        
                     }
 
                     ModelState.AddModelError("url", "File must be less than 2 mb");
