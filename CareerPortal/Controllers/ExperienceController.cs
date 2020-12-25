@@ -90,7 +90,7 @@ namespace CareerPortal.Controllers
             {
                 return Json(new { success = false, message = "Error while deleting" });
             }
-            if (category.UserId != UserInfo.UserID)
+            if (category.UserId != UserInfo.UserID || !UserInfo.isLoggedIn)
             {
                 return Json(new { success = false, message = "Unauthenticated delete" });
             }
