@@ -64,7 +64,7 @@
                                 <h6 class="mb-0">Date of Birth</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                @Model.User.DateOfBirth.ToShortDateString();
+                                @Model.User.DateOfBirth.ToShortDateString()
                             </div>
                         </div>
                         <hr>
@@ -112,8 +112,8 @@
                                                 <td scope="row">@experience.Company</td>
                                                 <td>@experience.Position</td>
                                                 <td>@experience.Description</td>
-                                                <td>@experience.StartDate</td>
-                                                <td>@experience.EndDate</td>
+                                                <td>@experience.StartDate.ToShortDateString()</td>
+                                                <td>@experience.EndDate.ToShortDateString()</td>
                                                 <td>
                                                     <div class="text-center">
                                                         <a asp-action="Upsert" asp-route-id="@experience.Id" class="btn btn-success text-white" style="cursor:pointer">

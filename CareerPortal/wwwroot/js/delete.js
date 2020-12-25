@@ -14,7 +14,6 @@
                 success: function (data) {
                     if (data.success) {
                         toastr.success(data.message);
-                        //setTimeout(2000);
                         location.reload();
                     }
                     else {
