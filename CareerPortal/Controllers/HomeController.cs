@@ -20,13 +20,11 @@ namespace CareerPortal.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IS3Service _service;
 
-        public HomeController(ILogger<HomeController> logger,IUnitOfWork unitOfWork,IS3Service service)
+        public HomeController(ILogger<HomeController> logger,IUnitOfWork unitOfWork)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
-            _service = service;
         }
 
         public IActionResult Index()
@@ -67,47 +65,8 @@ namespace CareerPortal.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        [HttpGet]
-        public IActionResult AddFile(string type="Image")
-        {
-            if (!UserInfo.isLoggedIn) return RedirectToAction(nameof(Login));
-            FileUploadObject file = new FileUploadObject();
-            file.Type = type;
-            return View(file);
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> AddFile(FileUploadObject test)
-        {
-            string FileKey;
-            if (!UserInfo.isLoggedIn) return RedirectToAction(nameof(Login));
-            if (ModelState.IsValid)
-            {
-                using (var memoryStream = new MemoryStream())
-                {
-                    await test.URL.CopyToAsync(memoryStream);
-                    if (memoryStream.Length < 2097152)
-                    {
-                        var extension = Path.GetExtension(test.URL.FileName).ToLower();
-                        if ( (extension.Equals(".png") && test.Type.Equals("Image")) || (extension.Equals(".pdf") && test.Type.Equals("Resume")))
-                        {
-                            FileKey = UserInfo.UserID.ToString() + extension;
-                            var BucketName = test.Type.Equals("Image") ? SD.BucketName + @"/" + SD.ProfileImageFolder : SD.BucketName + @"/" + SD.ResumeFolder;
-                            var response = await _service.UploadFileAsync(memoryStream, BucketName, FileKey);
-                            if (response.UploadSuccessful) return RedirectToAction(nameof(Index), "Profile");
-                            else return Ok(response);
-                        }else
-                        {
-                            ModelState.AddModelError("url", "Extension must be png / pdf");
-                        }
-                        
-                    }
-
-                    ModelState.AddModelError("url", "File must be less than 2 mb");
-                }
-            }
-            return View(test);
-        }
+        
 
         #region
 
@@ -153,7 +112,7 @@ namespace CareerPortal.Controllers
 
                     UserInfo = new SessionInfo()
                     {
-                        isLoggedIn = false,
+                        isLoggedIn = true,
                         UserID = _unitOfWork.User.GetFirstOrDefault(i => i.Email == user.Email).Id
                     };
                     HttpContext.Session.SetString("SessionUser", JsonConvert.SerializeObject(UserInfo));

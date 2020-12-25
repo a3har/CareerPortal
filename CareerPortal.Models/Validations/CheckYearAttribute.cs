@@ -6,40 +6,36 @@ using System.Text;
 
 namespace CareerPortal.Models.Validations
 {
-    public class CheckYearBetweenAttribute : ValidationAttribute, IClientModelValidator
+    public class CheckYearBetweenAttribute : ValidationAttribute
     {
-        private readonly int _startYear;
-        private readonly int _endYear;
+        private int _startYear { get; }
+        private int _endYear;
 
-        public CheckYearBetweenAttribute(int startYear,int endYear=0)
+        public CheckYearBetweenAttribute(int startYear)
         {
             
-            if (endYear == 0)
+           _endYear = Int32.Parse(DateTime.Now.Year.ToString());
+            if (_endYear < startYear)
             {
-                _endYear = Int32.Parse(DateTime.Now.Year.ToString());
-            }
-            if (endYear < startYear)
-            {
-                _startYear = endYear;
+                _startYear = _endYear;
                 _endYear = startYear;
             }
             else
             {
                 _startYear = startYear;
-                _endYear = endYear;
             }
         }
 
-        public void AddValidation(ClientModelValidationContext context)
-        {
-            var error = FormatErrorMessage(context.ModelMetadata.GetDisplayName());
-            context.Attributes.Add("data-val", "true");
-            context.Attributes.Add("data-val-error", error);
-        }
+        //public void AddValidation(ClientModelValidationContext context)
+        //{
+        //    var error = FormatErrorMessage(context.ModelMetadata.GetDisplayName());
+        //    context.Attributes.Add("data-val", "true");
+        //    context.Attributes.Add("data-val-error", error);
+        //}
 
         public override bool IsValid(object value)
         {
-            int val = Int32.Parse(value.ToString());
+            int val = (int) value;
             return val < _endYear && val > _startYear;
         }
     }

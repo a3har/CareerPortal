@@ -6,8 +6,8 @@ using System.Text;
 
 namespace CareerPortal.Models.Validations
 {
-    public class YearLessThanAttribute : ValidationAttribute, IClientModelValidator
-    {
+    public class YearLessThanAttribute : ValidationAttribute 
+    { 
         private readonly string _comparisonProperty;
 
         public YearLessThanAttribute(string comparisonProperty)
@@ -33,11 +33,11 @@ namespace CareerPortal.Models.Validations
             return ValidationResult.Success;
         }
 
-        public void AddValidation(ClientModelValidationContext context)
-        {
-            var error = FormatErrorMessage(context.ModelMetadata.GetDisplayName());
-            context.Attributes.Add("data-val", "true");
-            context.Attributes.Add("data-val-error", error);
-        }
+        //public void AddValidation(ClientModelValidationContext context)
+        //{
+        //    var error = FormatErrorMessage(context.ModelMetadata.GetDisplayName());
+        //    context.Attributes.Add("data-val", "true");
+        //    context.Attributes.Add("data-val-error", error);
+        //}
     }
 }

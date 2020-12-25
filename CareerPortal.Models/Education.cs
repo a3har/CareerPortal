@@ -16,14 +16,14 @@ namespace CareerPortal.Models
         [Required]
         public string Degree { get; set; }
         [Required]
+        [Range(1,100)]
         public int Score { get; set; }
         [Required]
-        [CheckYearBetween(1900)]
-        [YearLessThan("PassYear",ErrorMessage ="Enrollment Year must be less than or equal to PassYear")]
+        [CheckYearBetween(1900,ErrorMessage ="Year must be greater than 1900 and less than current year")]
         public int EnrollYear { get; set; }
         [Required]
-        [CheckYearBetween(1900)]
-        [YearGreaterThan("EnrollYear",ErrorMessage = "Pass Year must be greater than or equal to Enrollment Year")]
+        [CheckYearBetween(1900, ErrorMessage = "Year must be greater than 1900 and less than current year")]
+        [YearGreaterThan("EnrollYear", ErrorMessage = "Pass Year must be greater than or equal to Enrollment Year")]
         public int PassYear { get; set; }
         [Required]
         public int UserId { get; set; }

@@ -77,7 +77,7 @@ namespace CareerPortal.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(education.Id);
+            return View(education);
         }
 
         #endregion

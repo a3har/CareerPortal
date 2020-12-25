@@ -42,13 +42,15 @@
 
             </tbody>
         </table>
-        <a asp-controller="Experience" asp-action="Index" class="btn btn-primary mt-4 float-right">Next : Add Experience Details</a>  
+        <a asp-controller="Experience" asp-action="Index" class="btn btn-primary mt-4 float-right">Next : Add Experience Details</a>
     </div>
 </div>
 
 
-@section Scripts{ 
+@section Scripts{
 
-<script src="~/js/delete.js" ></script>
+    <script src="~/js/delete.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+
 
 }
