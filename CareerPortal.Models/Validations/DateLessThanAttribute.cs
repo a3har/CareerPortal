@@ -27,7 +27,7 @@ namespace CareerPortal.Models.Validations
 
             var comparisonValue = (DateTime)property.GetValue(validationContext.ObjectInstance);
 
-            if (currentValue > comparisonValue)
+            if (DateTime.Compare(currentValue, comparisonValue) < 0)
                 return new ValidationResult(ErrorMessage);
 
             return ValidationResult.Success;
