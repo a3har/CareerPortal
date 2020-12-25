@@ -80,6 +80,25 @@ namespace CareerPortal.Controllers
             return View(education);
         }
 
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            var category = _unitOfWork.Education.Get(id);
+            if (category == null)
+            {
+                return Json(new { success = false, message = "Error while deleting" });
+            }
+            if (category.UserId != UserInfo.UserID)
+            {
+                return Json(new { success = false, message = "Unauthenticated delete" });
+            }
+            _unitOfWork.Education.Remove(category);
+            _unitOfWork.Save();
+            return Json(new { success = true, message = "Delete successfull" });
+
+        }
+
         #endregion
     }
 }

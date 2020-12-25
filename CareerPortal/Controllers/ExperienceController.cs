@@ -78,7 +78,26 @@ namespace CareerPortal.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(experience.Id);
+            return View(experience);
+        }
+
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            var category = _unitOfWork.Experience.Get(id);
+            if (category == null)
+            {
+                return Json(new { success = false, message = "Error while deleting" });
+            }
+            if (category.UserId != UserInfo.UserID)
+            {
+                return Json(new { success = false, message = "Unauthenticated delete" });
+            }
+            _unitOfWork.Experience.Remove(category);
+            _unitOfWork.Save();
+            return Json(new { success = true, message = "Delete successfull" });
+
         }
 
         #endregion

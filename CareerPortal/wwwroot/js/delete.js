@@ -1,4 +1,5 @@
 ﻿function Delete(url) {
+    console.log("URL : " + url);
     swal({
         title: "Are you sure you want to delete ?",
         text: "This is a permanent action and you will not be able to undo it",
@@ -13,6 +14,7 @@
                 success: function (data) {
                     if (data.success) {
                         toastr.success(data.message);
+                        //setTimeout(2000);
                         location.reload();
                     }
                     else {
